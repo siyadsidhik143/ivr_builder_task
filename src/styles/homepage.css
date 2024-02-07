@@ -1,0 +1,120 @@
+.App {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.sidebar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px; 
+  width: 30%;
+  background-color: #eeeeee;
+  padding: 10px;
+}
+
+.builder {
+  flex-grow: 1;
+  background-color: #e9f9fc;
+  position: relative;
+}
+
+.node {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 10px;
+  padding: 5px 10px;
+  width: 150px;
+  height: 100px; 
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px ridge rgb(202, 202, 202);
+  font-weight: bold;
+}
+
+.builder_node{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 10px;
+  padding: 5px 10px;
+  width: 180px;
+  height: 130px; 
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px ridge rgb(202, 202, 202);
+  font-weight: bold;
+}
+.start_node{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 10px;
+  width: 100px;
+  height: 50px; 
+  background-color: #ffffff;
+  border: 1px ridge rgb(202, 202, 202)
+}
+
+.next_node{
+  font-weight: normal;
+  color: #929292;
+  margin-left: auto;
+  margin: 5px 5px 0 auto;
+  font-size: smaller;
+}
+.next_node_outer{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.round_icon{
+  align-items: center;
+  margin-top: 4%;
+  width: 20px; 
+  height: 20px; 
+  background-color: #929292; 
+  border: 2px solid #ffffff; 
+  outline: 2px solid #929292; 
+  border-radius: 50%; 
+}
+
+.red {
+  border-top: 4px solid #ff0342; 
+}
+
+.blue {
+  border-top: 4px solid #3103ff; 
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0d8af3;
+}
+
+.node-details{
+  display: flex;
+  align-items: center;
+  margin-left: 30%;
+}
+.input_builder{
+  width: 50px;
+  margin-left: 20px;
+}
+.input_data{
+  display: flex;
+  font-weight: normal;
+  font-size: smaller;
+}
