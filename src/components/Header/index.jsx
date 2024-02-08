@@ -10,18 +10,45 @@ const Header = () => {
     const { drafts, current_build } = useSelector((state) => state.homePageStates)
     const { newBuild } = useSelector((state) => state.headerFunctions)
 
+    const [selectedIndex, setSelectedIndex] = useState(-1)
+    console.log(selectedIndex)
+
     const handleToggle = () => {
         setExpanded(!expanded);
     };
 
+    const handleSelect = (e) => {
+        if (e.target.value !== '') {
+            dispatch(currentBuild(JSON.parse(e.target.value)))
+            dispatch(NewBuildBtn(false))
+            setSelectedIndex(e.target.selectedIndex)
+        }
+    }
+
+    // console.log(drafts)
+
+    // const saveOrUpdateDraft = () => {
+    //     const existingDraftIndex = drafts.findIndex((d) => d.id === current_build.id);
+    //     console.log(existingDraftIndex)
+    //     if (newBuild === false && existingDraftIndex !== -1) {
+    //         const updatedDrafts = [...drafts];
+    //         updatedDrafts[existingDraftIndex] = current_build
+    //         dispatch(updateDraft(updatedDrafts));
+    //         alert('Updated Successfully')
+    //     } else {
+    //         dispatch(saveDraftBtnClick(true));
+    //         dispatch(NewBuildBtn(false));
+    //     }
+    // }
+
     const saveOrUpdateDraft = () => {
-        const existingDraftIndex = drafts.findIndex((d) => d.id === current_build.id);
-        if (newBuild === false && existingDraftIndex !== -1) {
+        if (newBuild === false && selectedIndex !== -1) {
             const updatedDrafts = [...drafts];
-            updatedDrafts[existingDraftIndex] = current_build
+            updatedDrafts[selectedIndex] = current_build
             dispatch(updateDraft(updatedDrafts));
             alert('Updated Successfully')
         } else {
+            setSelectedIndex(drafts.length)
             dispatch(saveDraftBtnClick(true));
             dispatch(NewBuildBtn(false));
         }
@@ -38,14 +65,9 @@ const Header = () => {
                     <Nav className="mr-auto">
                         <select
                             className='form-select me-3'
-                            onChange={(e) => {
-                                if (e.target.value !== '') {
-                                    dispatch(currentBuild(JSON.parse(e.target.value)))
-                                    dispatch(NewBuildBtn(false))
-                                }
-                            }}
+                            onChange={(e) => handleSelect(e)}
                         >
-                            <option value=''>Select Draft</option>
+                            {/* <option value=''>Select Draft</option>   */}
                             {drafts?.length && drafts?.map((node, index) => {
                                 return (
                                     <option
