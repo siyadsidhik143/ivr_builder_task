@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Navbar, Nav, Form, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux'
 import { saveDraftBtnClick, NewBuildBtn } from './HeaderSlice';
@@ -9,6 +9,8 @@ const Header = () => {
     const dispatch = useDispatch()
     const { drafts, current_build } = useSelector((state) => state.homePageStates)
     const { newBuild } = useSelector((state) => state.headerFunctions)
+
+    const selectRef = useRef(null)
 
     const [selectedIndex, setSelectedIndex] = useState(-1)
     console.log(selectedIndex)
@@ -25,22 +27,6 @@ const Header = () => {
         }
     }
 
-    // console.log(drafts)
-
-    // const saveOrUpdateDraft = () => {
-    //     const existingDraftIndex = drafts.findIndex((d) => d.id === current_build.id);
-    //     console.log(existingDraftIndex)
-    //     if (newBuild === false && existingDraftIndex !== -1) {
-    //         const updatedDrafts = [...drafts];
-    //         updatedDrafts[existingDraftIndex] = current_build
-    //         dispatch(updateDraft(updatedDrafts));
-    //         alert('Updated Successfully')
-    //     } else {
-    //         dispatch(saveDraftBtnClick(true));
-    //         dispatch(NewBuildBtn(false));
-    //     }
-    // }
-
     const saveOrUpdateDraft = () => {
         if (newBuild === false && selectedIndex !== -1) {
             const updatedDrafts = [...drafts];
@@ -48,7 +34,10 @@ const Header = () => {
             dispatch(updateDraft(updatedDrafts));
             alert('Updated Successfully')
         } else {
-            setSelectedIndex(drafts.length)
+            setTimeout(() => {
+                setSelectedIndex(drafts.length)
+                selectRef.current.selectedIndex = drafts.length
+            }, 50)
             dispatch(saveDraftBtnClick(true));
             dispatch(NewBuildBtn(false));
         }
@@ -66,6 +55,7 @@ const Header = () => {
                         <select
                             className='form-select me-3'
                             onChange={(e) => handleSelect(e)}
+                            ref={selectRef}
                         >
                             {/* <option value=''>Select Draft</option>   */}
                             {drafts?.length && drafts?.map((node, index) => {
@@ -85,7 +75,11 @@ const Header = () => {
                         </Button>
                         <Button
                             className='btn-warning ml-2'
-                            onClick={() => dispatch(NewBuildBtn(true))}
+                            onClick={() => {
+                                dispatch(NewBuildBtn(true))
+                                selectRef.current.value = ''
+                                dispatch(currentBuild([]))
+                            }}
                         >
                             New</Button>
 

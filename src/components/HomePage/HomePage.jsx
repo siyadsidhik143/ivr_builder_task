@@ -3,6 +3,7 @@ import Header from '../Header'
 import { useDispatch, useSelector } from 'react-redux';
 import { saveDraft, currentBuild } from './HomePageSlice';
 import { saveDraftBtnClick, NewBuildBtn } from '../Header/HeaderSlice';
+import LineConnector from '../connectLine';
 
 const Homepage = () => {
   const dispatch = useDispatch()
@@ -158,7 +159,7 @@ const Homepage = () => {
           {nodes?.length > 0 && nodes?.map((node) => (
             <div
               key={node.id}
-              className={`builder_node ${node.type === 'wait' ? 'red' : 'blue'}`}
+              className={`builder_node elements ${node.type === 'wait' ? 'red' : 'blue'}`}
               style={{
                 position: 'absolute',
                 top: node.y - 60,
@@ -172,6 +173,16 @@ const Homepage = () => {
               <div className=''>
                 {node.type}
               </div>
+
+              {/* <button style={{ width: '5px' }} className='ml-5'
+                onClick={() => {
+                  let temp = [...nodes]
+                  let newNodeIndex = temp.findIndex((d) => d.id === clickedNodeId)
+                  temp.splice(newNodeIndex, 1)
+                  setNodes(temp)
+                }}
+              >x</button> */}
+
               <div>
                 {node.type === 'wait' ? (
                   <div className='input_data'>
@@ -200,6 +211,10 @@ const Homepage = () => {
               <div className='round_icon'></div>
             </div>
           ))}
+          {/* {nodes.length > 1 && (
+            <LineConnector x1={nodes[0].x} y1={nodes[0].y} x2={nodes[1].x} y2={nodes[1].x} />
+          )} */}
+          
         </div>
       </div >
     </>
